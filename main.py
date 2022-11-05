@@ -35,6 +35,7 @@ completo = True
 regular = True
 bipartido = True
 bipartido_completo = True
+laço = False
 resposta = "Nulo"
 grau = 0
 arestas = 0
@@ -56,27 +57,14 @@ for e in range(len(lista)):
         print(f"{lista[e][ee]}", end=" ")
     print("")
 
-#teste grafo simples#
-
-#simples: não tem laço ou aresta multipla
-
-#como o laço aparece na matriz? e a aresta multipla?
-
-#aresta multipla entre v8 e v10 
-# [1 2 3 4 5 6 7 8 9 10 11]
-# [0 0 0 0 0 0 0 0 1 *2* 0]
-# algum elemento se relaciona 2 vezes com outro
-
-#laço em v5
-# [1 2 3 4 5 6 7 8 9 10 11]
-# [0 0 0 1 1 *1* 0 0 0 0 0]
-# o 5 elemento se relaciona consigo mesmo, então há laço
-
-#agora, vamos verificar se há aresta múltipla ou laço:
+##################################
+#      Cálculo grafo simples     #
+##################################
 
 for e in range(len(lista)):
     if(lista[e][e] > 0): #Verifica laço
             simples = False
+            laço = True
             print(f"\nHá um laço no vértice {e+1}")
     for ee in range(len(lista[e])):
             if(lista[e][ee] >= 2): #Verifica aresta multipla
@@ -90,9 +78,9 @@ else:
 
 print(f"\nO grafo é simples? Resposta: {resposta}\n")
 
-#################################
-#Cálculo dos graus e das arestas#
-#################################
+##################################
+#   Cálculo dos graus e arestas  #
+##################################
 for e in range(len(lista)):
     graus.append(grau)
     grau = 0
@@ -113,16 +101,10 @@ arestas /= 2
 
 print(f"\nO número de arestas é: {arestas}")
 #################################
-'''
-4-o grafo é completo? ////
-5-o grafo é regular?  ////
-6-o grafo é bipartido? Em caso afirmativo dê uma bipartição dos vértices do grafo.
-7-o grafo é bipartido completo? Em caso afirmativo dê uma bipartição dos vértices do grafo
 
-No código poderá ser usada, no máximo, uma função.
-[1 2 3 4 5 6 7 8 9 10 11]
-'''
-
+##################################
+#Cálculo grafo completo e regular#
+##################################
 for e in range(len(lista)):
     for ee in range(len(lista[e])):
         if(ee != e):
@@ -146,3 +128,41 @@ else:
     resposta = "Sim."
 
 print(f"\nO grafo é regular? Resposta: {resposta}\n")
+##################################
+
+'''
+6-o grafo é bipartido? Em caso afirmativo dê uma bipartição dos vértices do grafo.
+7-o grafo é bipartido completo? Em caso afirmativo dê uma bipartição dos vértices do grafo
+
+Um grafo é dito ser bipartido quando seu conjunto de vértices V puder ser particionado em dois 
+subconjuntos V1 e V2, tais que toda aresta de G une um vértice de V1 a outro de V2.
+
+-pegar a lista
+-dividir em duas (subconjuntos)
+- (Como testar TODAS as possíveis combinações de subconjuntos???) talvez eu não precise testar TODAS...
+
+-Ao pegar o primeiro vértice por exemplo, todos que ele se liga são de outro grupo
+-Teoricamente, todos os vértices em sequência seguem a mesma regra, o que liga neles não pode ser o mesmo grupo
+-Se essa ordem for quebrada, o grafo não é bipartido.
+-toda a aresta de um deve se unir a um vertice do outro
+
+V1    0 1 0 0 0 0 0 0 1 1 0
+
+Tenho que salvar em uma lista diferente, G2 = [V2, V9 E V10]
+
+V2    1 0 1 0 0 0 0 0 0 *1* 0
+
+V2 não pode se unir a nenhum vértice do G2.
+V2 se liga em V1, V3 E V10.
+V10 é um vértice do G2, logo o grafo não é bipartido
+
+Entre V2 e V10
+V2    1 0 1 0 0 0 0 0 0 *1* 0
+V10   1 *1* 2 0 0 0 1 2 0 0 0
+
+'''
+if(laço):
+    bipartido = False
+
+print(f"O grafo é bipartido? Resposta: {resposta}\n")
+print(f"O grafo é bipartido completo? Resposta: {resposta}\n")
