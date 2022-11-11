@@ -40,7 +40,7 @@ resposta = "Nulo"
 grau = 0
 arestas = 0
 
-arquivo = open("A.txt", "r");
+arquivo = open("A.txt", "r")
 
 for x in arquivo.readlines():
     lista.append(x.replace("\n", "").split(" "))
@@ -48,28 +48,30 @@ for x in arquivo.readlines():
 print("\nElemento(s) do grupo:\n")
 print("Nome: Luan Petroucic Moreno")
 print("R.A: 22.122.076-7\n")
+print("Nome: Thiago Monteiro Tinonin")
+print("R.A: 22.122.044-5\n")
+print("Nome: Fábio Martins Botelho")
+print("R.A: 22.122.068-4\n")
 
 print("Representação Matricial: ")
 
-for e in range(len(lista)):
-    for ee in range(len(lista[e])):
-        lista[e][ee] = int(lista[e][ee])
-        print(f"{lista[e][ee]}", end=" ")
+for linha in range(len(lista)):
+    for coluna in range(len(lista[linha])):
+        lista[linha][coluna] = int(lista[linha][coluna])
+        print(f"{lista[linha][coluna]}", end=" ")
     print("")
 
-##################################
-#      Cálculo grafo simples     #
-##################################
+#      Cálculo grafo simples     
 
-for e in range(len(lista)):
-    if(lista[e][e] > 0): #Verifica laço
+for linha in range(len(lista)):
+    if(lista[linha][linha] > 0): #Verifica laço
             simples = False
             laço = True
-            print(f"\nHá um laço no vértice {e+1}")
-    for ee in range(len(lista[e])):
-            if(lista[e][ee] >= 2): #Verifica aresta multipla
+            print(f"\nHá um laço no vértice {linha+1}")
+    for coluna in range(len(lista[linha])):
+            if(lista[linha][coluna] >= 2): #Verifica aresta multipla
                 simples = False
-                print(f"\nHá aresta múltipla entre o vértice {e+1} e o {ee+1}")  
+                print(f"\nHá aresta múltipla entre o vértice {linha+1} e o {coluna+1}")  
 
 if(simples == False):
     resposta = "Não."
@@ -78,16 +80,15 @@ else:
 
 print(f"\nO grafo é simples? Resposta: {resposta}\n")
 
-##################################
-#   Cálculo dos graus e arestas  #
-##################################
-for e in range(len(lista)):
+#   Cálculo dos graus e arestas  
+
+for linha in range(len(lista)):
     graus.append(grau)
     grau = 0
-    if(lista[e][e] > 0):
+    if(lista[linha][linha] > 0):
         grau += 1
-    for ee in range(len(lista[e])):
-        grau += lista[e][ee]
+    for coluna in range(len(lista[linha])):
+        grau += lista[linha][coluna]
 
 graus.append(grau)
 graus.remove(0)
@@ -100,15 +101,13 @@ for x in range(len(graus)):
 arestas /= 2
 
 print(f"\nO número de arestas é: {arestas}")
-#################################
 
-##################################
-#Cálculo grafo completo e regular#
-##################################
-for e in range(len(lista)):
-    for ee in range(len(lista[e])):
-        if(ee != e):
-            if(lista[e][ee] != 1):
+# Cálculo grafo completo e regular
+
+for linha in range(len(lista)):
+    for coluna in range(len(lista[linha])):
+        if(coluna != linha):
+            if(lista[linha][coluna] != 1):
                 completo = False
 
 if(completo == False):
@@ -128,7 +127,6 @@ else:
     resposta = "Sim."
 
 print(f"\nO grafo é regular? Resposta: {resposta}\n")
-##################################
 
 '''
 6-o grafo é bipartido? Em caso afirmativo dê uma bipartição dos vértices do grafo.
@@ -161,6 +159,7 @@ V2    1 0 1 0 0 0 0 0 0 *1* 0
 V10   1 *1* 2 0 0 0 1 2 0 0 0
 
 '''
+
 if(laço):
     bipartido = False
 
