@@ -61,7 +61,7 @@ for linha in range(len(lista)):
         print(f"{lista[linha][coluna]}", end=" ")
     print("")
 
-#      Cálculo grafo simples     
+# Cálculo grafo simples     
 
 for linha in range(len(lista)):
     if(lista[linha][linha] > 0): #Verifica laço
@@ -80,7 +80,7 @@ else:
 
 print(f"\nO grafo é simples? Resposta: {resposta}\n")
 
-#   Cálculo dos graus e arestas  
+# Cálculo dos graus e arestas  
 
 for linha in range(len(lista)):
     graus.append(grau)
@@ -160,8 +160,31 @@ V10   1 *1* 2 0 0 0 1 2 0 0 0
 
 '''
 
+vertices = []
+
+for linha in range(len(lista)):
+    xy = 0
+    for coluna in range(len(lista[coluna])):
+        if lista[linha][coluna] == 2:
+            xy += 1
+            continue
+        xy += lista[linha][coluna]
+    
+    if (xy%3) == 0:
+        break
+    
+if (xy%2) == 0:
+    bipartido = True
+else:
+    bipartido = False
+
 if(laço):
     bipartido = False
+
+if not bipartido: 
+    resposta = "Não."
+else:
+    resposta = "Sim."
 
 print(f"O grafo é bipartido? Resposta: {resposta}\n")
 print(f"O grafo é bipartido completo? Resposta: {resposta}\n")
