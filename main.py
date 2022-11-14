@@ -40,7 +40,7 @@ resposta = "Nulo"
 grau = 0
 arestas = 0
 
-arquivo = open("A.txt", "r")
+arquivo = open("B.txt", "r")
 
 for x in arquivo.readlines():
     lista.append(x.replace("\n", "").split(" "))
@@ -162,21 +162,29 @@ V10   1 *1* 2 0 0 0 1 2 0 0 0
 
 vertices = []
 
+# preenchemos uma matriz com os vertices que cada vertice se liga
 for linha in range(len(lista)):
-    xy = 0
-    for coluna in range(len(lista[coluna])):
-        if lista[linha][coluna] == 2:
-            xy += 1
+    v = []
+    for coluna in range(len(lista[linha])):
+        if lista[linha][coluna] == 0:
             continue
-        xy += lista[linha][coluna]
-    
-    if (xy%3) == 0:
+        v.append('v' + str(coluna))
+    vertices.append(v)
+
+fator = False
+
+for vertice in range(len(vertices)):
+    if fator:
         break
-    
-if (xy%2) == 0:
-    bipartido = True
-else:
-    bipartido = False
+    for indece in range(len(vertices[vertice])):
+        # caso chege no ultimo indice, não sera mais necessario comprarar
+        if vertice == (len(vertices) - 1):
+            break
+        # compara se o x se liga com um x, caso sim, não é bipartido
+        if vertices[vertice][indece] == vertices[vertice+1][indece]:
+            bipartido = False
+            fator = True
+            break
 
 if(laço):
     bipartido = False
