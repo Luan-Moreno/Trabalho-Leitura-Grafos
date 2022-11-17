@@ -40,7 +40,7 @@ resposta = "Nulo"
 grau = 0
 arestas = 0
 
-arquivo = open("B.txt", "r")
+arquivo = open("C.txt", "r")
 
 for x in arquivo.readlines():
     lista.append(x.replace("\n", "").split(" "))
@@ -55,10 +55,20 @@ print("R.A: 22.122.068-4\n")
 
 print("Representação Matricial: ")
 
-for linha in range(len(lista)):
-    for coluna in range(len(lista[linha])):
-        lista[linha][coluna] = int(lista[linha][coluna])
-        print(f"{lista[linha][coluna]}", end=" ")
+print("    ", end=" ")
+
+for e in range(len(lista)):
+    print("v" + str(e+1), end="  ")
+
+print()
+for e in range(len(lista)):
+    if(e >= 9):
+        print(f"v{e+1}", end="   ")
+    else:
+        print(f"v{e+1}", end="    ")
+    for ee in range(len(lista[e])):
+        lista[e][ee] = int(lista[e][ee])
+        print(f"{lista[e][ee]}", end="   ")
     print("")
 
 # Cálculo grafo simples     
