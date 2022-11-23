@@ -1,32 +1,4 @@
-'''
-0 1 0 0 0 0 0 0 1 1 0
-1 0 1 0 0 0 0 0 0 1 0
-0 1 0 1 0 0 0 0 0 2 1
-0 0 1 0 1 0 0 0 0 0 1
-0 0 0 1 1 1 0 0 0 0 0
-0 0 0 0 1 0 1 0 0 0 1
-0 0 0 0 0 1 0 0 0 1 1
-0 0 0 0 0 0 0 0 1 2 0
-1 0 0 0 0 0 0 1 0 0 0
-1 1 2 0 0 0 1 2 0 0 0
-0 0 1 1 0 1 1 0 0 0 0
-'''
-'''
-1-o grafo é simples? Por quê? ////
-Indique se há arestas múltiplas  ou laços. ////
-em que vértices ocorrem laços. ////
-Indique, também, entre que vértices as arestas múltipas ocorrem;  ////
-
-2-qual sequência dos graus do grafo? ////
-3-qual o número de arestas do grafo? ////
-4-o grafo é completo? ////
-5-o grafo é regular? ////
-6-o grafo é bipartido? Em caso afirmativo dê uma bipartição dos vértices do grafo.
-7-o grafo é bipartido completo? Em caso afirmativo dê uma bipartição dos vértices do grafo
-
-No código poderá ser usada, no máximo, uma função.
-[1 2 3 4 5 6 7 8 9 10 11]
-'''
+import math
 
 lista = []
 graus = []
@@ -40,7 +12,7 @@ resposta = "Nulo"
 grau = 0
 arestas = 0
 
-arquivo = open("B.txt", "r")
+arquivo = open("A.txt", "r")
 
 for x in arquivo.readlines():
     lista.append(x.replace("\n", "").split(" "))
@@ -128,38 +100,6 @@ else:
 
 print(f"\nO grafo é regular? Resposta: {resposta}\n")
 
-'''
-6-o grafo é bipartido? Em caso afirmativo dê uma bipartição dos vértices do grafo.
-7-o grafo é bipartido completo? Em caso afirmativo dê uma bipartição dos vértices do grafo
-
-Um grafo é dito ser bipartido quando seu conjunto de vértices V puder ser particionado em dois 
-subconjuntos V1 e V2, tais que toda aresta de G une um vértice de V1 a outro de V2.
-
--pegar a lista
--dividir em duas (subconjuntos)
-- (Como testar TODAS as possíveis combinações de subconjuntos???) talvez eu não precise testar TODAS...
-
--Ao pegar o primeiro vértice por exemplo, todos que ele se liga são de outro grupo
--Teoricamente, todos os vértices em sequência seguem a mesma regra, o que liga neles não pode ser o mesmo grupo
--Se essa ordem for quebrada, o grafo não é bipartido.
--toda a aresta de um deve se unir a um vertice do outro
-
-V1    0 1 0 0 0 0 0 0 1 1 0
-
-Tenho que salvar em uma lista diferente, G2 = [V2, V9 E V10]
-
-V2    1 0 1 0 0 0 0 0 0 *1* 0
-
-V2 não pode se unir a nenhum vértice do G2.
-V2 se liga em V1, V3 E V10.
-V10 é um vértice do G2, logo o grafo não é bipartido
-
-Entre V2 e V10
-V2    1 0 1 0 0 0 0 0 0 *1* 0
-V10   1 *1* 2 0 0 0 1 2 0 0 0
-
-'''
-
 vertices = []
 
 # preenchemos uma matriz com os vertices que cada vertice se liga
@@ -174,6 +114,7 @@ for linha in range(len(lista)):
 fator = False
 
 for vertice in range(len(vertices)):
+    # fator que quebra o loop caso não seja bipartido
     if fator:
         break
     for indece in range(len(vertices[vertice])):
@@ -195,4 +136,25 @@ else:
     resposta = "Sim."
 
 print(f"O grafo é bipartido? Resposta: {resposta}\n")
+
+# um grafo bipartido completo contém Km,n. O numero de arestas é m*n
+count = 0
+for vertice in range(len(vertices)):
+    count +=1
+
+if count % 2 == 0:
+    count = count / 2
+    m = count
+    n = count
+
+if not count % 2 == 0:
+    count = count / 2
+    m = math.floor(count)
+    n = math.ceil(count)
+
+if (m*n) == arestas:
+    resposta = "Sim."
+if (m*n) != arestas:
+    resposta = "Não."
+
 print(f"O grafo é bipartido completo? Resposta: {resposta}\n")
